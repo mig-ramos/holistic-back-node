@@ -153,3 +153,49 @@ model RestrictionHour {
 
   @@map("restriction_hour")
 }
+
+// setup HOME PAGE
+
+model Slide {
+  id         String    @id @default(uuid())
+  slide      String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("slides")
+}
+
+model About {
+  id          String    @id @default(uuid())
+  title       String
+  subTitle    String
+  description String
+  photo       String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+
+  @@map("about")
+}
+
+model Contact {
+  id         String    @id @default(uuid())
+  name       String
+  email      String
+  zap        String
+  content    String
+  status     Status
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("contacts")
+}
+
+enum Status {
+  PENDENTE
+  ANDAMENTO
+  CONCLUIDO
+
+  @@map("status")
+}
+
+// FIM setup HOME PAGE
