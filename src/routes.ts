@@ -1,4 +1,5 @@
 import { Router } from "express";
+import multer from "multer";
 
 import { CreateUserController } from './controllers/user/CreateUserController'
 import { UpdateUserController } from './controllers/user/UpdateUserController'
@@ -40,7 +41,12 @@ import { ActiveUserController } from "./controllers/user/ActiveUserController";
 import { DadosClientController } from "./controllers/user/DadosClientController";
 import { DadosAdminController } from "./controllers/admin/DadosAdminController";
 
+import uploadConfig from './config/multer';
+import { CreateBannerController } from "./controllers/admin/CreateBannerControler";
+
 const router = Router()
+
+const upload = multer(uploadConfig.upload("./imgs"));
 
 // -- Rotas USER --
 router.post('/user/add', isAuthenticated, new CreateUserController().handle)
@@ -69,10 +75,12 @@ router.get('/therapist/therapy/:id', isAuthenticated, new TherapistForTherapyCon
 // -- Rotas Admin --
 router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
+// Setup Home Page
+router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
 
 // --Rotas Hour --
 router.post('/hour/add', isAuthenticated, new CreateHourController().handle)
-router.get('/hour/available', isAuthenticated , new AvailableHoursController().handle)
+router.get('/hour/available', isAuthenticated, new AvailableHoursController().handle)
 router.put('/hour/up/:id', isAuthenticated, new UpdateHourController().handle)
 router.get('/hour/:id', isAuthenticated, new FindHourIdController().handle)
 router.delete('/hour/:id', isAuthenticated, new DeleteHourController().handle)
