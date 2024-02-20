@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../ERD.svg"
+  theme    = "forest"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Criar uma migration: yarn prisma migrate dev
+model User {
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  password        String
+  active          Boolean?          @default(true)
+  role            Role              @default(CLIENT)
+  schedule        Schedule[]
+  created_at      DateTime?         @default(now())
+  updated_at      DateTime?         @default(now())
+  client          Client?
+  therapist       Therapist?
+  admin           Admin?
+  restrictionDate RestrictionDate[]
+
+  @@map("users")
+}
+
+enum Role {
+  CLIENT
+  THERAPIST
+  ADMIN
+
+  @@map("roles")
+}
+
+model Client {
+  id         String    @unique
+  birthday   DateTime?
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  user       User      @relation(fields: [id], references: [id])
+
+  @@id([id])
+  @@map("clients")
+}
+
+enum TypeAdmin {
+  OPERACIONAL
+  FINANCEIRO
+  MASTER
+}
+
+model Admin {
+  id        String    @unique
+  typeAdmin TypeAdmin @default(OPERACIONAL)
+  user      User      @relation(fields: [id], references: [id])
+
+  @@id([id])
+  @@map("admins")
+}
+
+model Therapist {
+  id         String               @unique
+  created_at DateTime?            @default(now())
+  updated_at DateTime?            @default(now())
+  therapy    TherapistOnTherapy[]
+  schedule   Schedule[]
+  user       User                 @relation(fields: [id], references: [id])
+
+  @@id([id])
+  @@map("therapists")
+}
+
+model Therapy {
+  id          String               @id @default(uuid())
+  name        String
+  description String?
+  created_at  DateTime?            @default(now())
+  updated_at  DateTime?            @default(now())
+  therapist   TherapistOnTherapy[]
+  schedule    Schedule[]
+
+  @@map("therapies")
+}
+
+model TherapistOnTherapy {
+  therapist    Therapist @relation(fields: [therapist_id], references: [id])
+  therapy      Therapy   @relation(fields: [therapy_id], references: [id])
+  therapist_id String
+  therapy_id   String
+
+  @@id([therapist_id, therapy_id])
+  @@map("therapist_therapy")
+}
+
+model Hour {
+  id         String     @id @default(uuid())
+  hour       String     @unique
+  created_at DateTime?  @default(now())
+  updated_at DateTime?  @default(now())
+  schedule   Schedule[]
+
+  @@map("hours")
+}
+
+model Schedule {
+  id           String    @id @default(uuid())
+  scheduleDate DateTime? @db.Date
+  therapy_id   String
+  therapist_id String
+  hour_id      String
+  user_id      String
+  comment      String
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @default(now())
+  hour         Hour      @relation(fields: [hour_id], references: [id])
+  user         User      @relation(fields: [user_id], references: [id])
+  therapy      Therapy   @relation(fields: [therapy_id], references: [id])
+  therapist    Therapist @relation(fields: [therapist_id], references: [id])
+
+  @@map("schedules")
+}
+
+model RestrictionDate {
+  id              String            @id @default(uuid())
+  therapist_id    String
+  date            DateTime          @db.Date
+  created_at      DateTime?         @default(now())
+  updated_at      DateTime?         @default(now())
+  user            User              @relation(fields: [therapist_id], references: [id])
+  restrictionHour RestrictionHour[]
+
+  @@map("restriction_date")
+}
+
+model RestrictionHour {
+  id                 String          @id @default(uuid())
+  restrictionDate_id String
+  hour               String
+  created_at         DateTime?       @default(now())
+  updated_at         DateTime?       @default(now())
+  restrictionDate    RestrictionDate @relation(fields: [restrictionDate_id], references: [id])
+
+  @@map("restriction_hour")
+}
