@@ -78,7 +78,7 @@ router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
 // Setup Home Page
 router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
-router.get('/admin/banner', isAuthenticated, new ListBannerController().handle)
+router.get('/home/banner', new ListBannerController().handle)
 
 // --Rotas Hour --
 router.post('/hour/add', isAuthenticated, new CreateHourController().handle)
