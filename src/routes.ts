@@ -42,8 +42,8 @@ import { DadosClientController } from "./controllers/user/DadosClientController"
 import { DadosAdminController } from "./controllers/admin/DadosAdminController";
 
 import uploadConfig from './config/multer';
-import { CreateBannerController } from "./controllers/admin/CreateBannerControler";
-import { ListBannerController } from "./controllers/admin/ListBannerController";
+import { CreateBannerController } from "./controllers/home/CreateBannerControler";
+import { ListBannerController } from "./controllers/home/ListBannerController";
 
 const router = Router()
 

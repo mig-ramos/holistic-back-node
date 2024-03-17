@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateBannerService } from "../../services/admin/CreateBannerService"; 
+import { CreateBannerService } from "../../services/home/CreateBannerService"; 
 
 class CreateBannerController{
     async handle(req: Request, res: Response){
