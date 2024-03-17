@@ -76,8 +76,9 @@ router.get('/therapist/therapy/:id', isAuthenticated, new TherapistForTherapyCon
 // -- Rotas Admin --
 router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
-// Setup Home Page
 router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
+
+// Setup Home Page
 router.get('/home/banner', new ListBannerController().handle)
 
 // --Rotas Hour --
@@ -102,5 +103,9 @@ router.delete('/schedule/del/:id', isAuthenticated, new DeleteSchedulesByIdContr
 router.post('/schedule/add/restriction/:id', isAuthenticated, new CreateRestrictionDateController().handle)
 router.get('/schedule/list/restriction/:id', isAuthenticated, new ListRestrictionDateController().handle)
 router.put('/schedule/up/restriction/:p1', isAuthenticated, new UpdateRestrictionDateController().handle)
+
+// Setup Home Page
+router.post('/home/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
+router.get('/home/banner', new ListBannerController().handle)
 
 export { router }
