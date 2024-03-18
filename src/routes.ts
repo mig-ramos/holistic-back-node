@@ -42,8 +42,10 @@ import { DadosClientController } from "./controllers/user/DadosClientController"
 import { DadosAdminController } from "./controllers/admin/DadosAdminController";
 
 import uploadConfig from './config/multer';
+
 import { CreateBannerController } from "./controllers/home/CreateBannerControler";
 import { ListBannerController } from "./controllers/home/ListBannerController";
+import { CreateAboutController } from "./controllers/home/CreateAboutController";
 
 const router = Router()
 
@@ -105,7 +107,11 @@ router.get('/schedule/list/restriction/:id', isAuthenticated, new ListRestrictio
 router.put('/schedule/up/restriction/:p1', isAuthenticated, new UpdateRestrictionDateController().handle)
 
 // Setup Home Page
-router.post('/home/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
-router.get('/home/banner', new ListBannerController().handle)
+// Banner - Carrossel
+router.post('/home/slide', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
+router.get('/home/slide', new ListBannerController().handle)
+
+// About
+router.post('/home/about', isAuthenticated, upload.single('file'), new CreateAboutController().handle)
 
 export { router }
