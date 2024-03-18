@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { CreateBannerService } from "../../services/home/CreateBannerService"; 
+import { CreateSlideService } from "../../../services/home/slide/CreateSlideService"; 
 
-class CreateBannerController{
+class CreateSlideController{
     async handle(req: Request, res: Response){
-        const createBannerService = new CreateBannerService();
+        const createSlideService = new CreateSlideService();
 
         if(!req.file){
             throw new Error("Error upload file");
@@ -11,14 +11,14 @@ class CreateBannerController{
             // Renomeando o filename para slide
             const { originalname, filename: slide } = req.file;
 
-            const banner = await createBannerService.execute({
+            const slides = await createSlideService.execute({
                 slide
             });
 
-            return res.json(banner)
+            return res.json(slides)
         }
 
     }
 }
 
-export { CreateBannerController };
+export { CreateSlideController };

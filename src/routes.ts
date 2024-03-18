@@ -43,9 +43,10 @@ import { DadosAdminController } from "./controllers/admin/DadosAdminController";
 
 import uploadConfig from './config/multer';
 
-import { CreateBannerController } from "./controllers/home/CreateBannerControler";
-import { ListBannerController } from "./controllers/home/ListBannerController";
-import { CreateAboutController } from "./controllers/home/CreateAboutController";
+import { CreateSlideController } from "./controllers/home/slide/CreateSlideControler";
+import { ListSlideController } from "./controllers/home/slide/ListSlideController";
+import { CreateAboutController } from "./controllers/home/about/CreateAboutController";
+import { ListAboutController } from "./controllers/home/about/ListAboutController";
 
 const router = Router()
 
@@ -78,10 +79,10 @@ router.get('/therapist/therapy/:id', isAuthenticated, new TherapistForTherapyCon
 // -- Rotas Admin --
 router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
-router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
+router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
 
 // Setup Home Page
-router.get('/home/banner', new ListBannerController().handle)
+router.get('/home/banner', new ListSlideController().handle)
 
 // --Rotas Hour --
 router.post('/hour/add', isAuthenticated, new CreateHourController().handle)
@@ -108,10 +109,11 @@ router.put('/schedule/up/restriction/:p1', isAuthenticated, new UpdateRestrictio
 
 // Setup Home Page
 // Banner - Carrossel
-router.post('/home/slide', isAuthenticated, upload.single('file'), new CreateBannerController().handle)
-router.get('/home/slide', new ListBannerController().handle)
+router.post('/home/slide', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
+router.get('/home/slide', new ListSlideController().handle)
 
 // About
 router.post('/home/about', isAuthenticated, upload.single('file'), new CreateAboutController().handle)
+router.get('/home/about', new ListAboutController().handle)
 
 export { router }
