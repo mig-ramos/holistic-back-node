@@ -1,30 +1,33 @@
 import prismaClient from "../../prisma";
 
-interface TherapyRequest{
+interface TherapyRequest {
     name: string;
     description?: string;
+    photo?: string;
 }
 
-class CreateTherapyService{
-    async execute({ name, description }: TherapyRequest){
-        if(name === ''){
+class CreateTherapyService {
+    async execute({ name, description, photo }: TherapyRequest) {
+        if (name === '') {
             throw new Error('Terapia inválida')
         }
 
         const therapy = await prismaClient.therapy.create({
-            data:{
+            data: {
                 name: name,
-                description: description
+                description: description,
+                photo: photo,
             },
-            select:{
+            select: {
                 id: true,
                 name: true,
                 description: true,
+                photo: true,
             }
-    })
+        })
 
-    return therapy;
-}
+        return therapy;
+    }
 }
 
 export { CreateTherapyService }

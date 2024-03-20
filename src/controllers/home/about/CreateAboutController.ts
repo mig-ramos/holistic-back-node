@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { CreateAboutService } from "../../../services/home/about/CreateAboutService"; 
+import { CreateAboutService } from "../../../services/home/about/CreateAboutService";
 
-class CreateAboutController{
-    async handle(req: Request, res: Response){
+class CreateAboutController {
+    async handle(req: Request, res: Response) {
 
         const { title, subTitle, description } = req.body;
 
         const createAboutService = new CreateAboutService();
 
-        if(!req.file){
+        if (!req.file) {
             throw new Error("Error upload file");
         } else {
             // Renomeando o filename para slide
@@ -20,7 +20,7 @@ class CreateAboutController{
                 description,
                 photo
             }
-            
+
             );
 
             return res.json(about)

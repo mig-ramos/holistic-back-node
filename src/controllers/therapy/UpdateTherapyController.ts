@@ -1,24 +1,31 @@
 import { Request, Response } from "express";
 import { UpdateTherapyService } from "../../services/therapy/UpdateTherapyService";
 
-class UpdateTherapyController{
-    async handle(req: Request, res: Response){
+class UpdateTherapyController {
+  async handle(req: Request, res: Response) {
 
-       const id = req.params.id
-     //  console.log( `O parâmetro é: ${ id }` )
+    const updateTherapyService = new UpdateTherapyService()
 
-        const { name, description } = req.body;
+    const id = req.params.id
+     
+    const { name, description } = req.body;    
 
-        const updateTherapyService = new UpdateTherapyService()
+    if (!req.file) {
+      
+      throw new Error("Error upload file");
+    } else {
+      const { originalname, filename: photo } = req.file;
 
-        const therapy = await updateTherapyService.execute({
-            id,
-          name,
-          description
-        })
+      const therapy = await updateTherapyService.execute({
+        id,
+        name,
+        description,
+        photo,
+      });
 
-        return res.json(therapy);
+      return res.json(therapy);
     }
+  }
 }
 
 export { UpdateTherapyController }

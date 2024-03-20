@@ -7,6 +7,7 @@ class ListTherapyService {
         id: true,
         name: true,
         description: true,
+        photo: true,
       },
     });
     return therapy;
