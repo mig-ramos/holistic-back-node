@@ -159,7 +159,8 @@ model RestrictionHour {
 
 model Slide {
   id         String    @id @default(uuid())
-  slide      String
+  name       String
+  slogan     String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 

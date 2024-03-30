@@ -47,13 +47,15 @@ import { CreateSlideController } from "./controllers/home/slide/CreateSlideContr
 import { ListSlideController } from "./controllers/home/slide/ListSlideController";
 import { CreateAboutController } from "./controllers/home/about/CreateAboutController";
 import { ListAboutController } from "./controllers/home/about/ListAboutController";
+import { UpdateSlideController } from "./controllers/home/slide/UpdateSlideController";
+import { DeleteSlideController } from "./controllers/home/slide/DeleteSlideController";
 
 const router = Router()
 
 const upload = multer(uploadConfig.upload("./imgs"));
 
 // -- Rotas USER --
-router.post('/user/add', isAuthenticated, new CreateUserController().handle)
+router.post('/user/add', new CreateUserController().handle)
 router.put('/user/up/:id', isAuthenticated, new UpdateUserController().handle)
 router.post('/session', new AuthUserController().handle)
 router.get('/me', isAuthenticated, new DetailUserController().handle)
@@ -66,7 +68,7 @@ router.get('/user/client/:id', new DadosClientController().handle)
 
 // -- Rotas Therapy --
 router.post('/therapy', upload.single('file'), isAuthenticated, new CreateTherapyController().handle)
-router.get('/therapy', isAuthenticated, new ListTherapyController().handle)
+router.get('/therapy', new ListTherapyController().handle)
 router.put('/therapy/up/:id', upload.single('file'), isAuthenticated, new UpdateTherapyController().handle)
 router.delete('/therapy/del/:id', isAuthenticated, new DeleteTherapyController().handle)
 router.get('/therapy/therapist/:id', isAuthenticated, new TherapyForTherapistController().handle)
@@ -80,9 +82,6 @@ router.get('/therapist/therapy/:id', isAuthenticated, new TherapistForTherapyCon
 router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
 router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
-
-// Setup Home Page
-router.get('/home/banner', new ListSlideController().handle)
 
 // --Rotas Hour --
 router.post('/hour/add', isAuthenticated, new CreateHourController().handle)
@@ -110,6 +109,8 @@ router.put('/schedule/up/restriction/:p1', isAuthenticated, new UpdateRestrictio
 // Setup Home Page
 // Banner - Carrossel
 router.post('/home/slide', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
+router.put('/home/slide/up/:id', isAuthenticated, new UpdateSlideController().handle)
+router.delete('/home/slide/del/:id', isAuthenticated, new DeleteSlideController().handle)
 router.get('/home/slide', new ListSlideController().handle)
 
 // About

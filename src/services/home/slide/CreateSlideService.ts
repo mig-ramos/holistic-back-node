@@ -1,16 +1,18 @@
 import prismaClient from "../../../prisma";
 
 interface SlideRequest {
-    slide: string;
+    name: string;
+    slogan: string;
 }
 
 class CreateSlideService {
     async execute({
-        slide,
+        name, slogan
     }: SlideRequest) {
         const nomeSlide = await prismaClient.slide.create({
             data: {
-                slide: slide,
+                name: name,
+                slogan: slogan,
             }
         })
         return nomeSlide;

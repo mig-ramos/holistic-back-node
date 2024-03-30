@@ -5,7 +5,8 @@ class ListSlideService {
     const slide = await prismaClient.slide.findMany({
       select: {
         id: true,
-        slide: true,
+        name: true,
+        slogan: true,
       },
     });
     return slide;
