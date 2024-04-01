@@ -49,6 +49,8 @@ import { CreateAboutController } from "./controllers/home/about/CreateAboutContr
 import { ListAboutController } from "./controllers/home/about/ListAboutController";
 import { UpdateSlideController } from "./controllers/home/slide/UpdateSlideController";
 import { DeleteSlideController } from "./controllers/home/slide/DeleteSlideController";
+import { UpdateAboutController } from "./controllers/home/about/UpdateAboutController";
+import { DeleteAboutController } from "./controllers/home/about/DeleteAboutController";
 
 const router = Router()
 
@@ -115,6 +117,8 @@ router.get('/home/slide', new ListSlideController().handle)
 
 // About
 router.post('/home/about', isAuthenticated, upload.single('file'), new CreateAboutController().handle)
+router.put('/home/about/up/:id', isAuthenticated, new UpdateAboutController().handle)
+router.delete('/home/about/del/:id', isAuthenticated, new DeleteAboutController().handle)
 router.get('/home/about', new ListAboutController().handle)
 
 // Therapies
