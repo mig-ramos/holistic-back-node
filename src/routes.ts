@@ -68,12 +68,7 @@ router.get('/user/active/list', isAuthenticated, new ListActiveUserController().
 router.get('/user/noactive/list', isAuthenticated, new ListNoActiveUserController().handle)
 router.get('/user/client/:id', new DadosClientController().handle)
 
-// -- Rotas Therapy --
-router.post('/therapy', upload.single('file'), isAuthenticated, new CreateTherapyController().handle)
-router.get('/therapy', new ListTherapyController().handle)
-router.put('/therapy/up/:id', upload.single('file'), isAuthenticated, new UpdateTherapyController().handle)
-router.delete('/therapy/del/:id', isAuthenticated, new DeleteTherapyController().handle)
-router.get('/therapy/therapist/:id', isAuthenticated, new TherapyForTherapistController().handle)
+
 
 // -- Rotas Therapist --
 router.post('/therapist/add', isAuthenticated, new CreateTherapistController().handle)
@@ -122,6 +117,10 @@ router.delete('/home/about/del/:id', isAuthenticated, new DeleteAboutController(
 router.get('/home/about', new ListAboutController().handle)
 
 // Therapies
-router.get('/home/therapy', isAuthenticated, new ListTherapyController().handle)
+router.post('/home/therapy', upload.single('file'), isAuthenticated, new CreateTherapyController().handle)
+router.get('/home/therapy', new ListTherapyController().handle)
+router.put('/home/therapy/up/:id', upload.single('file'), isAuthenticated, new UpdateTherapyController().handle)
+router.delete('/home/therapy/del/:id', isAuthenticated, new DeleteTherapyController().handle)
+router.get('/therapy/therapist/:id', isAuthenticated, new TherapyForTherapistController().handle)
 
 export { router }
