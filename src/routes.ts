@@ -51,6 +51,10 @@ import { UpdateSlideController } from "./controllers/home/slide/UpdateSlideContr
 import { DeleteSlideController } from "./controllers/home/slide/DeleteSlideController";
 import { UpdateAboutController } from "./controllers/home/about/UpdateAboutController";
 import { DeleteAboutController } from "./controllers/home/about/DeleteAboutController";
+import { CreateBookTherapyController } from "./controllers/home/book-therapy/CreateBookTherapyController";
+import { UpdateBookTherapyController } from "./controllers/home/book-therapy/UpdateBookTherapyController";
+import { DeleteBookTherapyController } from "./controllers/home/book-therapy/DeleteBookTherapyController";
+import { ListBookTherapyController } from "./controllers/home/book-therapy/ListBookTherapyController";
 
 const router = Router()
 
@@ -122,5 +126,11 @@ router.get('/home/therapy', new ListTherapyController().handle)
 router.put('/home/therapy/up/:id', upload.single('file'), isAuthenticated, new UpdateTherapyController().handle)
 router.delete('/home/therapy/del/:id', isAuthenticated, new DeleteTherapyController().handle)
 router.get('/therapy/therapist/:id', isAuthenticated, new TherapyForTherapistController().handle)
+
+//Book Therapy
+router.post('/home/book-therapy', isAuthenticated, upload.single('file'), new CreateBookTherapyController().handle)
+router.put('/home/book-therapy/up/:id', isAuthenticated, new UpdateBookTherapyController().handle)
+router.delete('/home/book-therapy/del/:id', isAuthenticated, new DeleteBookTherapyController().handle)
+router.get('/home/book-therapy', new ListBookTherapyController().handle)
 
 export { router }

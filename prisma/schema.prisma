@@ -200,4 +200,18 @@ enum Status {
   @@map("status")
 }
 
+model BookTheraapies {
+  id          String    @id @default(uuid())
+  title       String
+  subTitle    String
+  buttonTitle String
+  photo       String
+  description String
+  mostrar     String?   @default("Não")
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+
+  @@map("book-therapy")
+}
+
 // FIM setup HOME PAGE
