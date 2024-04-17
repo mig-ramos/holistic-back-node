@@ -214,4 +214,19 @@ model BookTheraapies {
   @@map("book-therapy")
 }
 
+model MapLocal {
+  id         String    @id @default(uuid())
+  title      String
+  photo      String?
+  apiKey     String?
+  lat        String?
+  lng        String?
+  info       String?
+  mapId      String?   @default("DEMO_MAP_ID")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("map-local")
+}
+
 // FIM setup HOME PAGE

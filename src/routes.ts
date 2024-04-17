@@ -55,6 +55,10 @@ import { CreateBookTherapyController } from "./controllers/home/book-therapy/Cre
 import { UpdateBookTherapyController } from "./controllers/home/book-therapy/UpdateBookTherapyController";
 import { DeleteBookTherapyController } from "./controllers/home/book-therapy/DeleteBookTherapyController";
 import { ListBookTherapyController } from "./controllers/home/book-therapy/ListBookTherapyController";
+import { CreateMapLocalController } from "./controllers/home/map-local/CreateMapLocalController";
+import { UpdateMapLocalController } from "./controllers/home/map-local/UpdateMapLocalController";
+import { DeleteMapLocalController } from "./controllers/home/map-local/DeleteMapLocalController";
+import { ListMapLocalController } from "./controllers/home/map-local/ListMapLocalController";
 
 const router = Router()
 
@@ -132,5 +136,11 @@ router.post('/home/book-therapy', isAuthenticated, upload.single('file'), new Cr
 router.put('/home/book-therapy/up/:id', isAuthenticated, new UpdateBookTherapyController().handle)
 router.delete('/home/book-therapy/del/:id', isAuthenticated, new DeleteBookTherapyController().handle)
 router.get('/home/book-therapy', new ListBookTherapyController().handle)
+
+//MAP LOCAL
+router.post('/home/map-local', isAuthenticated, upload.single('file'), new CreateMapLocalController().handle)
+router.put('/home/map-local/up/:id', isAuthenticated, new UpdateMapLocalController().handle)
+router.delete('/home/map-local/del/:id', isAuthenticated, new DeleteMapLocalController().handle)
+router.get('/home/map-local', new ListMapLocalController().handle)
 
 export { router }
