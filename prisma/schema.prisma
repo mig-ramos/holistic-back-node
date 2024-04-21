@@ -181,11 +181,11 @@ model About {
 
 model Contact {
   id         String    @id @default(uuid())
-  name       String
-  email      String
-  zap        String
-  content    String
-  status     Status
+  name       String?
+  email      String?
+  zap        String?
+  content    String?
+  status     Status    @default(PENDENTE)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -227,6 +227,25 @@ model MapLocal {
   updated_at DateTime? @default(now())
 
   @@map("map-local")
+}
+
+model CompanySetup {
+  id             String    @id @default(uuid())
+  companyName    String?
+  description    String?
+  photo          String?
+  companyAddress String?
+  zap            String?
+  email          String?
+  facebook       String?
+  youtube        String?
+  instagram      String?
+  twitter        String?
+  officeOur      String?
+  created_at     DateTime? @default(now())
+  updated_at     DateTime? @default(now())
+
+  @@map("company-setup")
 }
 
 // FIM setup HOME PAGE

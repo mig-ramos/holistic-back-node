@@ -59,6 +59,10 @@ import { CreateMapLocalController } from "./controllers/home/map-local/CreateMap
 import { UpdateMapLocalController } from "./controllers/home/map-local/UpdateMapLocalController";
 import { DeleteMapLocalController } from "./controllers/home/map-local/DeleteMapLocalController";
 import { ListMapLocalController } from "./controllers/home/map-local/ListMapLocalController";
+import { CreateCompanyController } from "./controllers/home/company/CreateCompanyController";
+import { UpdateCompanyController } from "./controllers/home/company/UpdateCompanyController";
+import { DeleteCompanyController } from "./controllers/home/company/DeleteCompanyController";
+import { ListCompanyController } from "./controllers/home/company/ListCompanyController";
 
 const router = Router()
 
@@ -111,7 +115,9 @@ router.post('/schedule/add/restriction/:id', isAuthenticated, new CreateRestrict
 router.get('/schedule/list/restriction/:id', isAuthenticated, new ListRestrictionDateController().handle)
 router.put('/schedule/up/restriction/:p1', isAuthenticated, new UpdateRestrictionDateController().handle)
 
+
 // Setup Home Page
+
 // Banner - Carrossel
 router.post('/home/slide', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
 router.put('/home/slide/up/:id', isAuthenticated, new UpdateSlideController().handle)
@@ -142,5 +148,12 @@ router.post('/home/map-local', isAuthenticated, upload.single('file'), new Creat
 router.put('/home/map-local/up/:id', isAuthenticated, new UpdateMapLocalController().handle)
 router.delete('/home/map-local/del/:id', isAuthenticated, new DeleteMapLocalController().handle)
 router.get('/home/map-local', new ListMapLocalController().handle)
+
+//COMPANY SETUP
+//MAP LOCAL
+router.post('/home/company', isAuthenticated, upload.single('file'), new CreateCompanyController().handle)
+router.put('/home/company/up/:id', isAuthenticated, new UpdateCompanyController().handle)
+router.delete('/home/company/del/:id', isAuthenticated, new DeleteCompanyController().handle)
+router.get('/home/company', new ListCompanyController().handle)
 
 export { router }
