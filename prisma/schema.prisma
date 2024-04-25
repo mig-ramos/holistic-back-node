@@ -184,7 +184,8 @@ model Contact {
   name       String?
   email      String?
   zap        String?
-  content    String?
+  subject    String?
+  message    String?
   status     Status    @default(PENDENTE)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
