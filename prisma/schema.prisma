@@ -22,7 +22,7 @@ model User {
   name            String
   email           String            @unique
   password        String
-  active          Boolean?          @default(true)
+  active          String?           @default("S")
   role            Role              @default(CLIENT)
   schedule        Schedule[]
   created_at      DateTime?         @default(now())

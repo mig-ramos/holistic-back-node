@@ -27,11 +27,11 @@ class ActiveUserService {
           id: id,
         },
         data: {
-          active: true,
+          active: "S",
         }
       });
 
-      return {message: "Usuário ativado com sucesso"}
+      return { message: "Usuário ativado com sucesso" }
     }
   }
 }

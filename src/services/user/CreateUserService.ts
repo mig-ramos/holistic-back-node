@@ -85,16 +85,28 @@ class CreateUserService {
         },
       });
 
-      const client = await prismaClient.client.create({
-        data: {
-          id: user.id,
-        },
-        select: {
-          id: true,
-        },
-      });
+      if (user.role === "THERAPIST") {
+        await prismaClient.therapist.create({
+          data: {
+            id: user.id,
+          }
+        })
+      }
+      else if (user.role === "ADMIN") {
+        await prismaClient.admin.create({
+          data: {
+            id: user.id,
+          }
+        })
+      } else {
+        await prismaClient.client.create({
+          data: {
+            id: user.id,
+          }
+        })
+      }
 
-      return [user, client];
+      return [user];
     }
   }
 }

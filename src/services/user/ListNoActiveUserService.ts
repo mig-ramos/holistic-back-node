@@ -4,7 +4,7 @@ class ListNoActiveUserService {
     async execute() {
         const user = await prismaClient.user.findMany({
             where: {
-                active: false,
+                active: "N",
             },
             select: {
                 id: true,
