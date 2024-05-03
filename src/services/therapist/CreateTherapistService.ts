@@ -35,7 +35,7 @@ class CreateTherapistService {
             name: name,
             email: email,
             password: passwordHash,
-            role: role
+            role: "THERAPIST"
         },
         select:{
             id: true,

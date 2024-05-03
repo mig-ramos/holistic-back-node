@@ -63,6 +63,8 @@ import { CreateCompanyController } from "./controllers/home/company/CreateCompan
 import { UpdateCompanyController } from "./controllers/home/company/UpdateCompanyController";
 import { DeleteCompanyController } from "./controllers/home/company/DeleteCompanyController";
 import { ListCompanyController } from "./controllers/home/company/ListCompanyController";
+import { ListTherapistController } from "./controllers/therapist/ListTherapistController";
+import { ListAdminController } from "./controllers/admin/ListAdminController";
 
 const router = Router()
 
@@ -86,10 +88,12 @@ router.get('/user/client/:id', new DadosClientController().handle)
 router.post('/therapist/add', isAuthenticated, new CreateTherapistController().handle)
 router.post('/therapist/add/therapy', isAuthenticated, new AttachTherapyController().handle)
 router.get('/therapist/therapy/:id', isAuthenticated, new TherapistForTherapyController().handle)
+router.get('/therapist/list', isAuthenticated, new ListTherapistController().handle)
 
 // -- Rotas Admin --
 router.post('/admin/add', isAuthenticated, new CreateAdminController().handle)
 router.get('/user/admin/:id', isAuthenticated, new DadosAdminController().handle)
+router.get('/admin/list', isAuthenticated, new ListAdminController().handle)
 router.post('/admin/banner', isAuthenticated, upload.single('file'), new CreateSlideController().handle)
 
 // --Rotas Hour --
